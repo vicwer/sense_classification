@@ -54,7 +54,7 @@ data/
     |->train_list/train.txt
     |->tf_records
 ```
-1. 下载数据集: train.zip, val.zip, test.zip, ClsName2id.txt
+1. 下载数据集并解压: train.zip, val.zip, test.zip, ClsName2id.txt
 
 2. 生成 tf_records:
 
