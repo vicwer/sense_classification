@@ -54,7 +54,7 @@ data/
     |->train_list/train.txt
     |->tf_records
 ```
-1. Download dataset: train.zip, val.zip, test.zip, ClsName2id.txt
+1. Download dataset and unzip: train.zip, val.zip, test.zip, ClsName2id.txt
 
 2. Generate tf_records:
 
