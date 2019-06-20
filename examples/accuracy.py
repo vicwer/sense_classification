@@ -55,7 +55,6 @@ def accuracy(img_path, label_file, epoch):
 
                 all_image += 1
                 classes_index, scores_0 = sess.run([classes, scores], feed_dict={imgs_holder: np.reshape(img_data, [1, 224, 224, 3])})
-                print(str(classes_index[0]), label)
                 if classes_index[0] + 1 == label:
                     correct += 1
                 else:
