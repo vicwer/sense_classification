@@ -62,7 +62,7 @@ def accuracy(img_path, label_file, epoch):
                     wrong += 1
 
         accuracy = float(correct) / float(correct + wrong)
-        print('global_step: ', g_step)
+        # print('global_step: ', g_step)
         print("All images:\n {}".format(int(correct + wrong)))
         print("Accuracy: {:.4f}".format(accuracy))
 
@@ -75,4 +75,5 @@ if __name__ == '__main__':
     epoch = np.arange(12, 1, -1)
     print(epoch)
     for i in epoch:
+        print('================{}================'.format(i))
         accuracy(img_path, label_file, i)
