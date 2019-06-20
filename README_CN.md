@@ -1,13 +1,13 @@
-# sense_classification
+# 遥感图像场景分类
 
-[中文版本](README_CN.md)
+[English Version](README.md)
 
-## Introduction
+## 简介
 [RSCUP: 遥感图像场景分类](http://rscup.bjxintong.com.cn/#/theme/1)
 
 
 
-This repo is organized as follows:
+仓库路径应该组织成如下结构:
 
 ```
 sense_classification/
@@ -25,24 +25,24 @@ sense_classification/
     |->tools
 ```
 
-## Requirements
+## 环境依赖
 1. tensorflow-gpu==1.2.0 (I only test on tensorflow 1.12.0)
 2. python==3.4.3
 3. numpy
 4. easydict
 5. opencv==3.4.1
-6. Python packages might missing. pls fix it according to the error message.
+6. 有些包可能没列出来,根据错误提示安装
 
-## Installation, Prepare data, Training, Val, Generate submit
-### Installation
-1. Clone the sense_classification repository, and we'll call the directory that you cloned sense_classification as `${sense_classification_ROOT}`.
+## 安装, 准备数据, 训练, 验证, 生成提交文件
+### 安装
+1. 下载代码
 
 ```
 git clone https://github.com/vicwer/sense_classification.git
 ```
 
-### Prepare data
-data should be organized as follows:
+### 准备数据
+data目录结构:
 
 ```
 data/
@@ -54,20 +54,20 @@ data/
     |->train_list/train.txt
     |->tf_records
 ```
-1. Download dataset: train.zip, val.zip, test.zip, ClsName2id.txt
+1. 下载数据集: train.zip, val.zip, test.zip, ClsName2id.txt
 
-2. Generate tf_records:
+2. 生成 tf_records:
 
 ```
 cd tools
 python3 img_encode.py
 ```
 
-### Training
+### 训练
 
-I provide common used config.py in ${sense_classification_ROOT}, which can set hyperparameters.
+${sense_classification_ROOT}目录提供了config.py, 可设置超参数
 
-e.g.
+例如
 ```
 cd ${sense_classification_ROOT}
 vim config.py
@@ -78,20 +78,20 @@ cd ${sense_classification_ROOT}/examples/
 python3 multi_gpus_train.py
 ```
 
-### Val
+### 验证
 
 ```
 cd ${sense_classification_ROOT}/examples/
 python3 accuracy.py
 ```
 
-### Generate submit
+### 生成提交文件
 
 ```
 cd ${sense_classification_ROOT}/examples/
 python3 submit.py
 ```
 
-## Result:
+## 结果:
 
-Val: 0.908+
+验证集: 0.908+
