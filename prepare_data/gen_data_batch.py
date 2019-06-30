@@ -49,6 +49,9 @@ def parser(example):
     img = tf.decode_raw(feats['feature'], tf.uint8)
     img = tf.reshape(img, [256, 256, 3])
 
+    rot_img = tf.image.rot90(img)
+    rot_seed = tf.random_uniform([], maxval=1.0)
+    img = tf.cond(rot_seed > 0.5, lambda: img, lambda: rot_img)
     img = tf.image.random_flip_left_right(img)
     img = tf.image.random_flip_up_down(img)
 

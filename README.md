@@ -26,7 +26,7 @@ sense_classification/
 ```
 
 ## Requirements
-1. tensorflow-gpu==1.2.0 (I only test on tensorflow 1.12.0)
+1. tensorflow-gpu==1.12.0 (I only test on tensorflow 1.12.0)
 2. python==3.4.3
 3. numpy
 4. easydict
