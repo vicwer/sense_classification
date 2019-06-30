@@ -103,6 +103,7 @@ class Network(object):
                     return logits
 
 def block(inputs, c_outputs, s, name):
+    se_module = True
     out1 = slim.conv2d(inputs,
                        num_outputs=c_outputs,
                        kernel_size=[3,3],
@@ -110,18 +111,45 @@ def block(inputs, c_outputs, s, name):
                        scope=name+'_0')
     if PRINT_LAYER_LOG:
         print(name+'_0', out1.get_shape())
-    out2 = slim.conv2d(out1,
+    output = slim.conv2d(out1,
                        num_outputs=c_outputs,
                        kernel_size=[3,3],
                        stride=1,
                        activation_fn=None,
                        scope=name+'_1')
     if PRINT_LAYER_LOG:
-        print(name+'_1', out2.get_shape())
+        print(name+'_1', output.get_shape())
     if s == 2:
-        return nn_ops.relu(out2)
+        return nn_ops.relu(output)
     else:
-        output = nn_ops.relu(inputs + out2)
+        if se_module:
+            squeeze = tf.reduce_mean(output, [1, 2], keepdims=True, name='global_pool_v4')
+            if PRINT_LAYER_LOG:
+                print('squeeze', squeeze.get_shape())
+            fc1 = slim.conv2d(squeeze,
+                            num_outputs=squeeze.get_shape()[-1] // 16,
+                            normalizer_fn=None,
+                            normalizer_params=None,
+                            weights_regularizer=None,
+                            kernel_size=[1,1],
+                            stride=1,
+                            activation_fn=tf.nn.relu,
+                            scope=name+'_fc1')
+            if PRINT_LAYER_LOG:
+                print('fc1', fc1.get_shape())
+            fc2 = slim.conv2d(fc1,
+                            num_outputs=squeeze.get_shape()[-1],
+                            normalizer_fn=None,
+                            normalizer_params=None,
+                            weights_regularizer=None,
+                            kernel_size=[1,1],
+                            stride=1,
+                            activation_fn=tf.sigmoid,
+                            scope=name+'_fc2')
+            if PRINT_LAYER_LOG:
+                print('fc2', fc2.get_shape())
+            output = output * fc2
+        output = nn_ops.relu(inputs + output)
         if PRINT_LAYER_LOG:
             print(name, output.get_shape())
         return output
