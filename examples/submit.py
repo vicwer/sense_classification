@@ -32,17 +32,17 @@ def submit(img_path, submit_file, epoch):
         saver.restore(sess, ckpt_dir + 'senceCls-' + str(epoch))
         sess.run(tf.local_variables_initializer())
 
-        for img in tqdm(range(0, 89234)):
-            img = cv2.imread(os.path.join(img_path, str(img).zfill(5) + '.jpg'))
+        for idx in tqdm(range(1, 89234)):
+            img = cv2.imread(os.path.join(img_path, str(idx).zfill(5) + '.jpg'))
             image = cv2.resize(img, (224, 224))
             img_data = image.astype(np.float32) / 255.0 * 2.0
 
             classes_index, scores_0 = sess.run([classes, scores], feed_dict={imgs_holder: np.reshape(img_data, [1, 224, 224, 3])})
-            submit_f.write(str(img).zfill(5) + '.jpg' + ' ' + str(classes_index[0] + 1) + '\n')
+            submit_f.write(str(idx).zfill(5) + '.jpg' + ' ' + str(classes_index[0] + 1) + '\n')
 
     submit_f.close()
     zf = zipfile.ZipFile('classification.zip', 'w', zipfile.zlib.DEFLATED)
-    zf.write(submit_f)
+    zf.write(submit_file)
     zf.cloes()
 
     tf.reset_default_graph()
@@ -53,7 +53,7 @@ if __name__ == '__main__':
         os.makedirs('./submit')
     submit_file = './submit/classification.txt'
 
-    epoch = 12
+    epoch = [80]
     print(epoch)
     for i in epoch:
         submit(img_path, submit_file, i)
