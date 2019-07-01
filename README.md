@@ -95,3 +95,4 @@ python3 submit.py
 ## Result:
 
 Val: 0.908+
+Test: 0.90509
