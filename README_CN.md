@@ -26,7 +26,7 @@ sense_classification/
 ```
 
 ## 环境依赖
-1. tensorflow-gpu==1.2.0 (I only test on tensorflow 1.12.0)
+1. tensorflow-gpu==1.12.0 (I only test on tensorflow 1.12.0)
 2. python==3.4.3
 3. numpy
 4. easydict
@@ -95,3 +95,4 @@ python3 submit.py
 ## 结果:
 
 验证集: 0.908+
+测试集：0.90509
