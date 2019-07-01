@@ -43,7 +43,7 @@ def submit(img_path, submit_file, epoch):
     submit_f.close()
     zf = zipfile.ZipFile('classification.zip', 'w', zipfile.zlib.DEFLATED)
     zf.write(submit_file)
-    zf.cloes()
+    zf.close()
 
     tf.reset_default_graph()
 
