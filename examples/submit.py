@@ -41,7 +41,7 @@ def submit(img_path, submit_file, epoch):
             submit_f.write(str(idx).zfill(5) + '.jpg' + ' ' + str(classes_index[0] + 1) + '\n')
 
     submit_f.close()
-    zf = zipfile.ZipFile('classification.zip', 'w', zipfile.zlib.DEFLATED)
+    zf = zipfile.ZipFile('./submit/classification.zip', 'w', zipfile.zlib.DEFLATED)
     zf.write(submit_file)
     zf.close()
 
