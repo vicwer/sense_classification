@@ -9,6 +9,7 @@ from config import cfg
 import os
 import re
 import cv2
+import math
 
 def distorted_bounding_box_crop(image,
                                 bbox,
@@ -48,6 +49,7 @@ def parser(example):
 
     img = tf.decode_raw(feats['feature'], tf.uint8)
     img = tf.reshape(img, [256, 256, 3])
+    img = tf.contrib.image.rotate(img, tf.random_uniform([], minval=-10*math.pi/180., maxval=10*math.pi/180.))
 
     rot_img = tf.image.rot90(img)
     rot_seed = tf.random_uniform([], maxval=1.0)
